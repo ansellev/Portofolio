@@ -1,0 +1,90 @@
+html {
+  background-color: var(--html-bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Latar gradasi sebagai dua lapisan tetap (bukan background-attachment) supaya konsisten
+ * di semua browser, termasuk Safari iOS. Blob blur memberi sesuatu untuk di-blur oleh kaca.
+ * ::before = tema terang (biru muda, ungu, putih lembut); ::after = tema gelap.
+ * Saat tema berganti, lapisan gelap memudar masuk atau keluar.
+ */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background:
+    radial-gradient(40rem 28rem at 8% 12%, rgba(147, 197, 253, 0.55), transparent 70%),
+    radial-gradient(36rem 30rem at 92% 28%, rgba(196, 181, 253, 0.55), transparent 70%),
+    radial-gradient(34rem 26rem at 30% 92%, rgba(255, 255, 255, 0.75), transparent 70%),
+    linear-gradient(135deg, #cfe3ff 0%, #e1d6ff 48%, #f7f5ff 100%);
+}
+
+body::after {
+  background:
+    radial-gradient(42rem 30rem at 8% 10%, rgba(76, 96, 168, 0.3), transparent 70%),
+    radial-gradient(38rem 32rem at 92% 30%, rgba(112, 92, 176, 0.24), transparent 70%),
+    radial-gradient(34rem 26rem at 30% 95%, rgba(255, 255, 255, 0.035), transparent 70%),
+    linear-gradient(135deg, #0b0d18 0%, #14111f 50%, #0a0a12 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+:root[data-theme='dark'] body::after {
+  opacity: 1;
+}
+
+/*
+ * Gelombang di kartu "Mari berkolaborasi": garis tegas di tepi kartu, tetapi samar di bagian tengah
+ * tempat judul dan teks berada, supaya tulisan tetap terbaca jelas.
+ */
+.contact-waves {
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 72% at 50% 48%,
+    rgba(0, 0, 0, 0.14) 0%,
+    rgba(0, 0, 0, 0.32) 52%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 62% 72% at 50% 48%,
+    rgba(0, 0, 0, 0.14) 0%,
+    rgba(0, 0, 0, 0.32) 52%,
+    #000 100%
+  );
+}
+
+/* Warna cincin fokus ditetapkan sejak awal agar tidak "menyala" dari putih lewat transisi warna tombol. */
+a,
+button {
+  outline-color: var(--color-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::after {
+    transition: none;
+  }
+}

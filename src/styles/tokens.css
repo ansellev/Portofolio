@@ -1,0 +1,96 @@
+/*
+ * Design token: ubah tampilan seluruh website dari sini.
+ * Token di @theme otomatis menjadi class Tailwind (mis. text-ink, bg-surface, rounded-panel).
+ * Nilai di bawah adalah tema TERANG; tema gelap menimpanya di blok :root[data-theme='dark'].
+ */
+@theme {
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #1b1840; /* teks utama, tombol utama */
+  --color-ink-soft: #4b4a73; /* teks pendukung */
+  --color-accent: #5b49c4; /* label, hover, cincin fokus; kontras 5,8:1 di atas kaca terang */
+  --color-on-ink: #ffffff; /* teks/ikon di atas permukaan "ink" (tombol utama, menu aktif) */
+
+  --color-surface: rgba(255, 255, 255, 0.6); /* alas kontrol kecil (saklar, tombol menu) */
+  --color-surface-hover: rgba(255, 255, 255, 0.7); /* hover tautan navbar, chip skill */
+  --color-surface-raised: rgba(255, 255, 255, 0.9); /* hover tombol sosial */
+  --color-line: rgba(255, 255, 255, 0.8); /* garis tipis di sekeliling kontrol kecil */
+
+  --radius-panel: 2rem; /* frame biasa */
+  --radius-panel-lg: 2.5rem; /* frame besar (hero, kontak) */
+  --radius-inner: 1.5rem; /* gambar di dalam frame */
+}
+
+/* Varian `dark:` untuk class Tailwind, mengikuti <html data-theme="dark"> (bukan pengaturan sistem). */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Permukaan kaca (glassmorphism) dan bayangan kursor: tema terang */
+:root {
+  color-scheme: light;
+
+  --glass-bg: rgba(255, 255, 255, 0.42);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 10px 40px rgba(99, 102, 241, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  --glass-strong-bg: rgba(255, 255, 255, 0.62);
+  --glass-strong-border: rgba(255, 255, 255, 0.85);
+  --glass-strong-shadow:
+    0 12px 36px rgba(99, 102, 241, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  --glow-core: rgba(255, 255, 255, 0.95);
+  --glow-mid: rgba(255, 255, 255, 0.6);
+
+  --hero-intro-bg: var(--glass-bg); /* alas panel di belakang teks hero */
+
+  --coverflow-shadow-active:
+    0 44px 70px -28px rgba(70, 50, 170, 0.5), 0 18px 32px -16px rgba(60, 40, 140, 0.32);
+
+  --coverflow-card-bg: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* slide tengah hampir buram agar slide di belakangnya tidak tembus */
+
+  --html-bg: #e7e4ff; /* warna di balik latar gradasi (terlihat sekilas saat overscroll) */
+}
+
+/* Tema GELAP: kaca tetap kaca, hanya warnanya yang berganti */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-ink: #f3f2ff;
+  --color-ink-soft: #b9b8d3;
+  --color-accent: #b9adff;
+  --color-on-ink: #15132b;
+
+  --color-surface: rgba(255, 255, 255, 0.08);
+  --color-surface-hover: rgba(255, 255, 255, 0.13);
+  --color-surface-raised: rgba(255, 255, 255, 0.2);
+  --color-line: rgba(255, 255, 255, 0.18);
+
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  --glass-strong-bg: rgba(255, 255, 255, 0.12);
+  --glass-strong-border: rgba(255, 255, 255, 0.2);
+  --glass-strong-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  --glow-core: rgba(255, 255, 255, 0.16);
+  --glow-mid: rgba(255, 255, 255, 0.07);
+
+  --hero-intro-bg: rgba(
+    12,
+    11,
+    24,
+    0.66
+  ); /* lebih gelap agar titik gelombang tidak mengganggu teks */
+
+  --coverflow-shadow-active:
+    0 44px 70px -26px rgba(0, 0, 0, 0.85), 0 18px 32px -16px rgba(0, 0, 0, 0.6);
+
+  --coverflow-card-bg: rgba(38, 36, 56, 0.94);
+
+  --html-bg: #0b0a14;
+}

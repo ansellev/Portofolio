@@ -1,0 +1,45 @@
+/* Frame naik ke atas saat di-scroll masuk ke layar (lihat hook useRevealOnScroll) */
+.reveal {
+  opacity: 0;
+  transform: translateY(56px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Huruf nama di hero naik satu per satu saat halaman dibuka */
+@keyframes letter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-letter {
+  display: inline-block;
+  opacity: 0;
+  animation: letter-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .rise-letter {
+    animation: none;
+    opacity: 1;
+  }
+}

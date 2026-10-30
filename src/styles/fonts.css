@@ -1,0 +1,8 @@
+/* Manrope 800 dengan kontur tumpang-tindih dihapus, supaya teks garis tepi (outline) pada nama tampil bersih. */
+@font-face {
+  font-family: 'Manrope Outline';
+  src: url('../assets/fonts/manrope-800-outline.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}

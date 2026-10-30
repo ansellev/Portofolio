@@ -1,0 +1,103 @@
+/*
+ * Carousel "coverflow" (komponen: components/ui/CoverflowCarousel.jsx), dipakai halaman Project dan Pengalaman Organisasi.
+ * Semua slide ditumpuk di satu sel grid; posisi tiap slide ditentukan oleh dua variabel yang diisi komponen:
+ *   --o    posisi relatif terhadap slide aktif (0 = tengah, -1 = kiri, 1 = kanan, ...)
+ *   --abs  jarak absolutnya (0, 1, 2, ...)
+ * Ukuran kartu dan jarak antar slide diatur lewat --card-w dan --step.
+ */
+.coverflow-stage {
+  --card-w: min(27rem, 78vw);
+  --step: calc(var(--card-w) * 0.62); /* jarak geser slide samping dari tengah */
+
+  display: grid;
+  justify-items: center;
+  padding-block: 2.5rem; /* ruang untuk bayangan slide tengah */
+  overflow-x: hidden;
+  overflow-x: clip;
+  touch-action: pan-y; /* geser horizontal untuk carousel, vertikal tetap menggulir halaman */
+  outline: none;
+}
+
+.coverflow-stage:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.coverflow-stage[data-swipeable] {
+  cursor: grab;
+}
+
+.coverflow-stage[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+@media (min-width: 1024px) {
+  .coverflow-stage {
+    --card-w: 30rem;
+  }
+}
+
+.coverflow-slide {
+  grid-area: 1 / 1;
+  align-self: stretch;
+  position: relative;
+  width: var(--card-w);
+  transform: translateX(calc(var(--o) * var(--step) + var(--drag-x, 0px)))
+    scale(calc(1 - var(--abs) * 0.14));
+  opacity: calc(1 - var(--abs) * 0.5); /* tengah penuh, samping setengah, lebih jauh hilang */
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease,
+    box-shadow 0.6s ease;
+  will-change: transform, opacity;
+}
+
+/* Slide tengah: bayangan besar yang jatuh di atas slide samping, dan latar hampir buram supaya
+   teks slide di belakangnya tidak terlihat tembus di bawah teks slide tengah. */
+.coverflow-slide[data-offset='0'] {
+  background: var(--coverflow-card-bg);
+  box-shadow: var(--coverflow-shadow-active);
+}
+
+.coverflow-slide[data-hidden] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Selama digeser, slide mengikuti jari tanpa jeda animasi */
+.coverflow-stage[data-dragging] .coverflow-slide {
+  transition: none;
+}
+
+/* Klik slide samping untuk memindahkannya ke tengah */
+.coverflow-slide-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* Slide yang melompat dari satu sisi ke sisi lain: pindah langsung lalu memudar masuk */
+.coverflow-slide.is-wrapping {
+  transition:
+    transform 0s,
+    opacity 0.6s ease;
+  animation: coverflow-wrap-in 0.6s ease both;
+}
+
+@keyframes coverflow-wrap-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coverflow-slide,
+  .coverflow-slide.is-wrapping {
+    transition: none;
+    animation: none;
+  }
+}

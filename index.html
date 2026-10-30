@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#dbe7ff" />
+    <!--
+      Memasang tema sebelum halaman tampil supaya tidak berkedip.
+      Aturan sama dengan src/theme/themes.js: pilihan tersimpan dulu, kalau belum ada pakai tema bawaan (terang).
+      DEFAULT_THEME di sini harus sama dengan di themes.js; kunci 'portfolio-theme' sama dengan STORAGE_KEYS.theme.
+    -->
+    <script>
+      ;(function () {
+        var DEFAULT_THEME = 'light'
+        try {
+          var saved = localStorage.getItem('portfolio-theme')
+          var theme = saved === 'light' || saved === 'dark' ? saved : DEFAULT_THEME
+          document.documentElement.dataset.theme = theme
+          if (theme === 'dark') {
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0e17')
+          }
+        } catch (error) {
+          /* storage tidak tersedia: tetap pakai tema bawaan (terang) */
+        }
+      })()
+    </script>
+    <meta name="description" content="Portofolio Anselmus Levin Lukman, mahasiswa Ilmu Komputer." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Anselmus Levin Lukman | Portofolio" />
+    <meta
+      property="og:description"
+      content="Portofolio Anselmus Levin Lukman, mahasiswa Ilmu Komputer."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Anselmus Levin Lukman | Portofolio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript> Website ini memerlukan JavaScript. / This website requires JavaScript. </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

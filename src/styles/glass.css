@@ -1,0 +1,47 @@
+/* Permukaan glassmorphism */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: var(--glass-strong-bg);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-strong-border);
+  box-shadow: var(--glass-strong-shadow);
+}
+
+/*
+ * Bayangan putih lembut di belakang kursor (di tema gelap lebih halus, lihat --glow-core) saat hover di atas frame.
+ * Posisi (--mx, --my) diisi oleh hook usePointerGlow. Berada di belakang isi frame
+ * (z-index -1 di dalam stacking context sendiri).
+ */
+.glow-spot {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-spot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle var(--glow-size, 280px) at var(--mx, 50%) var(--my, 50%),
+    var(--glow-core) 0%,
+    var(--glow-mid) 35%,
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.glow-spot[data-hover]::before {
+  opacity: 1;
+}
