@@ -56,12 +56,13 @@ src/
 │  ├─ layout/                Navbar, ThemeToggle, CvDownloadButton, LanguageSwitch, SkipLink, Footer, SiteLayout
 │  ├─ ui/                    GlassPanel, Reveal, Section, Button, Chip, SocialLink, SunMoonIcon, ...
 │  │                         dan kartu berfoto yang dipakai bersama: CoverflowCarousel, CardGrid, MediaCard,
-│  │                         ImageGallery, ExpandableText
+│  │                         ImageGallery, ExpandableText, CardTint (gradien warna kartu)
 │  └─ effects/               DigitalWave/ (gelombang titik di hero) dan ContourWaves/ (gelombang garis di kartu "Mari berkolaborasi");
 │                            masing-masing berisi komponen, renderer, dan config
-├─ hooks/                    usePointerGlow, useRevealOnScroll, useHoverCycle, useDragSwipe, ...
-├─ lib/                      cx (gabung class), storage (localStorage aman), createImageLookup, fillTemplate
-├─ styles/                   index.css, tokens, base, glass, theme, motion, hero, coverflow, fonts
+├─ hooks/                    usePointerGlow, useRevealOnScroll, useHoverCycle, useDragSwipe, useCardTint, ...
+├─ lib/                      cx (gabung class), storage (localStorage aman), createImageLookup, fillTemplate,
+│                            imageAccent (warna dominan gambar), cardTint (warna gradien kartu)
+├─ styles/                   index.css, tokens, base, glass, theme, motion, hero, coverflow, card-tint, fonts
 └─ assets/                   images/ (profile, certificates/, projects/, experiences/) dan fonts/
 scripts/check-content.mjs    pemeriksa kelengkapan konten
 ```
@@ -75,6 +76,9 @@ scripts/check-content.mjs    pemeriksa kelengkapan konten
 | Tambah skill                                       | tambah item di kelompok yang sesuai di `src/content/skills.js`. Teks biasa (`'Figma'`) atau `{ id: '...', en: '...' }`                                                                            |
 | Tambah sertifikasi atau penghargaan                | tambah satu objek di `src/content/certifications.js`; gambarnya ditaruh di `src/assets/images/certificates/` lalu nama filenya ditulis di field `image`                                           |
 | Tambah project baru                                | tambah satu objek di `src/content/projects.js` dan taruh fotonya di `src/assets/images/projects/` (lihat bagian "Menambah project baru" di bawah)                                                 |
+| Ubah kekuatan gradien warna di dasar kartu         | `--card-tint-alpha` di `src/styles/tokens.css` (terang dan gelap terpisah); 0 = tanpa gradien                                                                                                     |
+| Ubah warna, kecerahan, atau warna cadangan gradien | `src/lib/cardTint.js`: `LIGHTNESS`, batas jenuh, `FALLBACK` (untuk gambar tanpa warna); pencarian warna di `src/lib/imageAccent.js`                                                               |
+| Warna kartu tidak berganti saat foto berganti      | `TINT_FOLLOWS_PHOTO = false` di `src/lib/cardTint.js` (warna selalu dari foto pertama)                                                                                                            |
 | Ubah tipe project atau urutan filter               | `src/content/projectTypes.js`; label tipenya di `projects.types` pada `locales/id.js` dan `en.js`                                                                                                 |
 | Ubah ukuran, jarak, atau bayangan carousel         | `src/styles/coverflow.css` (`--card-w` = lebar kartu, `--step` = jarak slide samping); bayangan dan latar slide tengah di `--coverflow-shadow-active` dan `--coverflow-card-bg` pada `tokens.css` |
 | Tambah pengalaman organisasi                       | tambah satu objek di `src/content/experiences.js` dan taruh fotonya di `src/assets/images/experiences/` (lihat bagian "Menambah pengalaman organisasi")                                           |
@@ -113,7 +117,7 @@ Setelah mengubah konten, jalankan `npm run check:content`: ia akan memberi tahu 
 {
   key: 'nama-unik',            // huruf kecil, tanpa spasi, tidak boleh sama dengan project lain
   featured: false,             // true = ikut tampil di carousel "Top Projects"
-  type: 'frontend',            // 'uiux' | 'frontend' | 'backend' | 'fullstack'
+  type: 'frontend',            // 'uiux' | 'frontend' | 'backend' | 'fullstack', atau daftar: ['uiux', 'frontend']
   name: 'Nama Project',
   stack: ['React', 'Tailwind CSS'],
   description: { id: 'Deskripsi bahasa Indonesia.', en: 'English description.' },
@@ -134,6 +138,21 @@ Cara kerjanya:
 - Foto berganti saat kartu di-hover atau difokus dengan keyboard; di layar sentuh pakai titik kecil di bawah foto.
 - Deskripsi yang panjang dipotong beberapa baris dengan tombol "Selengkapnya" (hanya muncul bila memang terpotong).
 - Tombol GitHub dan Demo muncul hanya untuk link yang diisi.
+
+## Gradien warna otomatis di kartu
+
+Setiap kartu project, pengalaman organisasi, dan sertifikat punya gradien lembut yang dimulai dari dasar
+kartu dan memudar ke atas. Warnanya **otomatis** mengikuti warna aksen dominan foto kartu, jadi project atau
+sertifikat baru langsung mendapat warna sendiri tanpa pengaturan apa pun.
+
+- `lib/imageAccent.js` membaca foto yang sudah dimuat (diperkecil ke 48 px), mengabaikan abu-abu, putih, dan
+  hitam, lalu memilih rona (hue) yang paling dominan dan paling berwarna. Tidak ada unduhan tambahan, dan foto
+  yang belum terlihat belum dianalisis. Foto yang hampir tanpa warna dicoba sekali lagi dengan batas lebih longgar.
+- `lib/cardTint.js` mengubah rona itu menjadi warna lembut dengan kecerahan yang dikunci per tema (dan dinaikkan
+  untuk rona yang secara alami gelap, seperti biru) supaya latar kartu selalu terang di tema terang dan gelap di
+  tema gelap. Dengan begitu kontras teks aman untuk foto berwarna apa pun (terukur minimal 4,8:1).
+- Foto tanpa warna (mis. layar gelap) dan kartu tanpa foto memakai ungu lembut senada dengan situs.
+- Di kartu dengan banyak foto, warna berganti mengikuti foto yang sedang tampil.
 
 ## Menambah pengalaman organisasi
 

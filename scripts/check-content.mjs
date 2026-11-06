@@ -21,7 +21,7 @@ import { education } from '../src/content/education.js'
 import { skillGroups } from '../src/content/skills.js'
 import { certifications } from '../src/content/certifications.js'
 import { projects } from '../src/content/projects.js'
-import { PROJECT_TYPES } from '../src/content/projectTypes.js'
+import { PROJECT_TYPES, typesOf } from '../src/content/projectTypes.js'
 import { experiences } from '../src/content/experiences.js'
 import { CV_FILE } from '../src/config/site.js'
 
@@ -114,10 +114,10 @@ for (const item of certifications) {
 for (const project of projects) {
   const label = `projects.${project.key}`
   if (!project.name) problems.push(`${label}: "name" kosong`)
-  if (!PROJECT_TYPES.includes(project.type))
-    problems.push(
-      `${label}: tipe "${project.type}" tidak dikenal (pilihan: ${PROJECT_TYPES.join(', ')})`,
-    )
+  for (const type of typesOf(project)) {
+    if (!PROJECT_TYPES.includes(type))
+      problems.push(`${label}: tipe "${type}" tidak dikenal (pilihan: ${PROJECT_TYPES.join(', ')})`)
+  }
   for (const image of project.images ?? []) {
     const file = new URL(`../src/assets/images/projects/${image}`, import.meta.url)
     if (!existsSync(file))

@@ -4,3 +4,6 @@
  * dan di kedua berkas locale, lalu pakai di field `type` pada src/content/projects.js.
  */
 export const PROJECT_TYPES = ['uiux', 'frontend', 'backend', 'fullstack']
+
+/** Tipe sebuah project sebagai daftar: `type: 'uiux'` dan `type: ['uiux', 'frontend']` sama-sama diterima. */
+export const typesOf = (project) => [project.type].flat()

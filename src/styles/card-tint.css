@@ -1,0 +1,31 @@
+/*
+ * Gradien warna di dasar kartu (komponen: components/ui/CardTint.jsx).
+ * Warnanya datang dari variabel --tint (otomatis dari warna dominan gambar kartu). Warna digambar
+ * penuh lalu "dimask" menjadi gradien dari dasar kartu ke atas, supaya perpindahan warna bisa
+ * dianimasikan lewat transition background-color (gradien biasa tidak bisa).
+ * Kekuatannya diatur token --card-tint-alpha di tokens.css.
+ */
+.card-tint {
+  position: absolute;
+  inset: 0;
+  z-index: -2; /* di bawah bayangan kursor (-1) dan isi kartu, di atas latar kaca */
+  border-radius: var(--radius-panel);
+  background-color: var(--tint, transparent);
+  opacity: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.6) 30%, transparent 66%);
+  mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.6) 30%, transparent 66%);
+  transition:
+    opacity 0.8s ease,
+    background-color 0.7s ease;
+}
+
+.card-tint[data-ready] {
+  opacity: var(--card-tint-alpha);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-tint {
+    transition: none;
+  }
+}

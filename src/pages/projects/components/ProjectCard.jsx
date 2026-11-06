@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button'
 import ExpandableText from '@/components/ui/ExpandableText'
 import MediaCard from '@/components/ui/MediaCard'
 import { resolveProjectImage } from '@/content/projectImages'
+import { typesOf } from '@/content/projectTypes'
 import { useLanguage } from '@/i18n/useLanguage'
 
 /**
@@ -13,13 +14,16 @@ import { useLanguage } from '@/i18n/useLanguage'
  */
 export default function ProjectCard({ project, variant = 'grid' }) {
   const { ui, localize } = useLanguage()
-  const { name, type, stack = [], githubUrl, demoUrl } = project
+  const { name, stack = [], githubUrl, demoUrl } = project
+  const typeLabel = typesOf(project)
+    .map((type) => ui.projects.types[type])
+    .join(' · ')
   const images = project.images.map(resolveProjectImage).filter(Boolean)
   const newTab = ui.site.opensInNewTab
 
   return (
     <MediaCard name={name} images={images}>
-      <p className="text-sm font-semibold text-accent">{ui.projects.types[type]}</p>
+      <p className="text-sm font-semibold text-accent">{typeLabel}</p>
       <h3 className="mt-1 text-xl font-bold leading-snug sm:text-2xl">{name}</h3>
 
       {stack.length > 0 && (

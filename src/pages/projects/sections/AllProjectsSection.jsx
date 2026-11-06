@@ -4,21 +4,25 @@ import CardGrid from '@/components/ui/CardGrid'
 import GlassPanel from '@/components/ui/GlassPanel'
 import Section from '@/components/ui/Section'
 import { projects } from '@/content/projects'
-import { PROJECT_TYPES } from '@/content/projectTypes'
+import { PROJECT_TYPES, typesOf } from '@/content/projectTypes'
 import { fillTemplate } from '@/lib/fillTemplate'
 import { useLanguage } from '@/i18n/useLanguage'
 import ProjectCard from '@/pages/projects/components/ProjectCard'
 import ProjectTypeFilter from '@/pages/projects/components/ProjectTypeFilter'
 
 const countsByType = Object.fromEntries(
-  PROJECT_TYPES.map((type) => [type, projects.filter((project) => project.type === type).length]),
+  PROJECT_TYPES.map((type) => [
+    type,
+    projects.filter((project) => typesOf(project).includes(type)).length,
+  ]),
 )
 
 /** Semua project dalam grid, dengan filter tipe (UI/UX, Frontend, Backend, Full-stack). */
 export default function AllProjectsSection() {
   const { ui } = useLanguage()
   const [type, setType] = useState('all')
-  const visible = type === 'all' ? projects : projects.filter((project) => project.type === type)
+  const visible =
+    type === 'all' ? projects : projects.filter((project) => typesOf(project).includes(type))
 
   return (
     <Section id="all-projects" title={ui.projects.allTitle}>

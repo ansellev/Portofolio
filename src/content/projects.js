@@ -5,7 +5,8 @@
  *
  *   key          id unik (huruf kecil, tanpa spasi)
  *   featured     true = tampil di carousel "Top Projects" (selain di "All Projects")
- *   type         'uiux' | 'frontend' | 'backend' | 'fullstack'  (lihat content/projectTypes.js)
+ *   type         'uiux' | 'frontend' | 'backend' | 'fullstack'  (lihat content/projectTypes.js);
+ *                boleh daftar untuk beberapa tipe sekaligus, mis. ['uiux', 'frontend']
  *   name         nama project
  *   stack        daftar teknologi (opsional)
  *   description  { id, en } deskripsi singkat
@@ -66,7 +67,7 @@ export const projects = [
       id: 'V-Phone adalah website untuk mempromosikan dan menjual produk-produk V-Phone. Saya membuat situs web ini untuk mempelajari cara merancang situs web dengan UI dan UX yang baik, berdasarkan prinsip "8 Golden Rules of Interface Design". Situs web ini terdiri dari halaman Beranda, Produk, Promosi, Tentang, dan Registrasi. Saya merancang sendiri seluruh aset web menggunakan Figma (kecuali ikon dan gambar).',
       en: 'V-Phone is a online website for promoting and selling V-Phone products. I made this website to learn how to design a website that has good UI and UX based on the 8 Golden Rules of Interface Design. This website consists of Home Page, Products Page, Promotion Page, About Page, and Register Page. I designed all the web assets myself using Figma (except for the icons and images).',
     },
-    images: ['v-phone1.png','v-phone2.png','v-phone3.png','v-phone4.png','v-phone5.png'],
+    images: ['v-phone1.png', 'v-phone2.png', 'v-phone3.png', 'v-phone4.png', 'v-phone5.png'],
     githubUrl: 'https://github.com/ansellev/Project-V-Phone-HCI.git',
     demoUrl: 'https://v-phone-web.vercel.app/',
   },
@@ -75,12 +76,20 @@ export const projects = [
     featured: false,
     type: 'fullstack',
     name: 'ezrun.com',
-    stack: ['React', 'NestJS', 'MySQL','PrismaORM'],
+    stack: ['React', 'NestJS', 'MySQL', 'PrismaORM'],
     description: {
       id: 'ezrun adalah situs web tempat para pemain dapat mengirimkan rekor speedrun mereka saat memainkan gim tertentu. Di ezrun, pemain dapat mengunggah speedrun mereka, bersaing dalam papan peringkat untuk setiap gim, serta memberikan komentar atau menanggapi komentar pemain lain. Untuk mengirimkan rekor tersebut, pemain wajib menyertakan bukti berupa video dari sesi permainan mereka melalui tautan YouTube. Selain pemain, terdapat juga peran admin yang memiliki akses untuk menambahkan gim, membuat kategori, menyetujui atau menghapus rekor, serta menghapus komentar.',
       en: 'ezrun is an online website where players could submit their speedrun record when playing a spesific game. In ezrun, players could submit their speedruns, compete with the leaderboard from each game, and comment on other players comments. To submit their run, players must have a video proof of their speedrun gameplay attempt by providing a YouTube URL of their video. Besides players, there is also an admin role where admin could add games, add categories, approve runs, delete runs, and delete comments if necessary.',
     },
-    images: ['ezrun-1.png','ezrun-2.png','ezrun-3.png','ezrun-4.png','ezrun-5.png','ezrun-6','ezrun-7'],
+    images: [
+      'ezrun-1.png',
+      'ezrun-2.png',
+      'ezrun-3.png',
+      'ezrun-4.png',
+      'ezrun-5.png',
+      'ezrun-6.png',
+      'ezrun-7.png',
+    ],
     githubUrl: 'https://github.com/ansellev/Project-EZRun-SoftwareArchitecture.git',
   },
   {
@@ -93,8 +102,8 @@ export const projects = [
       id: 'SahabatTuli adalah aplikasi yang dirancang untuk membantu tunarungu/penyandang tuli dalam berkomunikasi sehari-hari menggunakan fitur Text-to-Speech, Speech-to-Text, & Save Conversation. Saya berperan dalam merancang desain UI/UXnya menggunakan Figma dan membantu implementasi frontendnya. Aplikasi ini masih dalam proses pengembangan.',
       en: 'SahabatTuli is an application designed to assist deaf or hard-of-hearing individuals in their daily communication, featuring Text-to-Speech, Speech-to-Text, and conversation-saving capabilities. I designed the all of the pages using Figma and now helping the frontend implementation. This app is currently under development.',
     },
-    images: ['tuli-1.png','tuli-2.png','tuli-3.png'],
+    images: ['tuli-1.png', 'tuli-2.png', 'tuli-3.png'],
     githubUrl: 'https://github.com/SahabatTuli',
-    demoUrl: 'https://sahabattuli.com/'
+    demoUrl: 'https://sahabattuli.com/',
   },
 ]

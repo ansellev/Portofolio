@@ -3,10 +3,11 @@ import { fillTemplate } from '@/lib/fillTemplate'
 import { useLanguage } from '@/i18n/useLanguage'
 
 /**
- * Foto yang berganti dengan transisi memudar (dipakai kartu project dan pengalaman). `index` dikendalikan oleh kartu
+ * Foto yang berganti dengan transisi memudar (dipakai kartu project dan pengalaman).
+ * `onImageLoad(url, elemen)` dipanggil setiap foto selesai dimuat (dipakai untuk mencari warna kartu). `index` dikendalikan oleh kartu
  * (lihat hooks/useHoverCycle.js); titik di bawah foto memungkinkan berganti manual, terutama di layar sentuh.
  */
-export default function ImageGallery({ images, name, index, onSelect }) {
+export default function ImageGallery({ images, name, index, onSelect, onImageLoad }) {
   const { ui } = useLanguage()
   if (images.length === 0) return null
 
@@ -18,6 +19,10 @@ export default function ImageGallery({ images, name, index, onSelect }) {
           src={src}
           alt={fillTemplate(ui.media.imageAlt, { name, n: i + 1, total: images.length })}
           aria-hidden={i !== index}
+          onLoad={(event) => onImageLoad?.(src, event.currentTarget)}
+          ref={(element) => {
+            if (element?.complete) onImageLoad?.(src, element) // sudah termuat sebelum event terpasang
+          }}
           loading="lazy"
           decoding="async"
           draggable={false}

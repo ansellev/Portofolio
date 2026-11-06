@@ -52,6 +52,8 @@
     0.9
   ); /* slide tengah hampir buram agar slide di belakangnya tidak tembus */
 
+  --card-tint-alpha: 0.32; /* kekuatan gradien warna di dasar kartu */
+
   --html-bg: #e7e4ff; /* warna di balik latar gradasi (terlihat sekilas saat overscroll) */
 }
 
@@ -91,6 +93,8 @@
     0 44px 70px -26px rgba(0, 0, 0, 0.85), 0 18px 32px -16px rgba(0, 0, 0, 0.6);
 
   --coverflow-card-bg: rgba(38, 36, 56, 0.94);
+
+  --card-tint-alpha: 0.3;
 
   --html-bg: #0b0a14;
 }
