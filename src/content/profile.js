@@ -1,19 +1,14 @@
-/**
- * Identitas, bio, dan kontak.
- * Teks yang berbeda per bahasa ditulis sebagai { id: '...', en: '...' }.
- */
 export const profile = {
   name: {
     full: 'Anselmus Levin Lukman',
-    // Hero: "ANSEL" terisi penuh (nama panggilan), "MUS" hanya garis tepi, nama belakang di baris kedua.
     nickname: 'Ansel',
     nicknameRest: 'mus',
     surname: 'Levin Lukman',
   },
   role: { id: 'Mahasiswa Ilmu Komputer', en: 'Computer Science Student' },
   tagline: {
-    id: 'Membangun solusi perangkat lunak yang praktis dan berpusat pada pengguna.',
-    en: 'Building practical, user-focused software solutions.',
+    id: 'Berpengalaman dalam merancang dan membangun berbagai project software dan mendesain UI/UX',
+    en: 'Experienced in building software projects and UIUX design.',
   },
   bio: {
     id: 'Mahasiswa S1 Ilmu Komputer di Universitas Bina Nusantara dengan pengalaman praktis dalam mengembangkan aplikasi web dan seluler menggunakan React, TypeScript, NestJS, Flutter, serta basis data SQL. Berpengalaman dalam membangun REST API, mengimplementasikan autentikasi dan fitur aplikasi, serta berkolaborasi dalam proyek perangkat lunak menggunakan Git. Memahami pembuatan wireframe, prototipe, mockup, pengembangan antarmuka responsif, dan penggunaan umpan balik untuk meningkatkan kegunaan (usability). Memiliki minat di bidang rekayasa perangkat lunak, pengembangan frontend, serta penciptaan pengalaman digital yang praktis, intuitif, dan berorientasi pada pengguna.',
