@@ -73,7 +73,7 @@ export const projects = [
   },
   {
     key: 'ezrun',
-    featured: false,
+    featured: true,
     type: 'fullstack',
     name: 'ezrun.com',
     stack: ['React', 'NestJS', 'MySQL', 'PrismaORM'],
@@ -94,7 +94,7 @@ export const projects = [
   },
   {
     key: 'sahabattuli',
-    featured: true,
+    featured: false,
     type: 'fullstack',
     name: 'SahabatTuli (Ongoing)',
     stack: ['Flutter', 'TypeScript', 'Supabase'],
