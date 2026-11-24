@@ -6,7 +6,7 @@ export const skillGroups = [
   {
     key: 'programming',
     label: 'Programming Language',
-    items: ['HTML, CSS, Javascript, Python, C, Java, TypeScript, SQL, php'],
+    items: ['HTML', 'CSS', 'Javascript', 'Python', 'C', 'Java', 'TypeScript', 'SQL', 'php'],
   },
   {
     key: 'frameworks',
@@ -16,12 +16,12 @@ export const skillGroups = [
   {
     key: 'tools',
     label: 'Tools & Technologies',
-    items: ['Git, Prisma, MySQL, Supabase, PostgreSQL Postman, Figma, Swagger'],
+    items: ['Git', 'Prisma', 'MySQL', 'Supabase', 'Postman', 'Figma', 'Swagger'],
   },
   {
     key: 'software',
     label: 'Software Development & Analysis',
-    items: ['REST API Development, JWT Authentication, Agile/Scrum, Requirements Analysis, User Stories, Usability Testing'],
+    items: ['REST API Development', 'JWT Authentication', 'Agile/Scrum', 'Requirements Analysis', 'User Stories', 'Usability Testing'],
   },
   {
     key: 'soft',
